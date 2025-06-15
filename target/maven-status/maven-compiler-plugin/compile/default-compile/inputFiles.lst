@@ -1,0 +1,15 @@
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\exception\AlreadyShotException.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\exception\InvalidPositionException.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\Game.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\Main.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Battleship4.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Board.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\CellState.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Coordinate.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Cruiser3.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Destroyer2.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Ship.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\model\Submarine1.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\shooter\AiShooter.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\shooter\HumanShooter.java
+F:\dsadsadsa\BattleshipProject (1)\src\main\java\pl\battleship\shooter\Shooter.java
