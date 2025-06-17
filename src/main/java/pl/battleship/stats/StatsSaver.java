@@ -7,7 +7,7 @@ public class StatsSaver {
     public static void saveStats(GameStats stats) {
         try (XMLEncoder encoder = new XMLEncoder(
                 new BufferedOutputStream(
-                        new FileOutputStream("stats_" + stats.getUsername() + ".xml")))) {
+                        new FileOutputStream("stats/stats_" + stats.getUsername() + ".xml")))) {
             encoder.writeObject(stats);
             System.out.println("Saved stats XML to " + stats.getUsername());
         } catch (IOException e) {

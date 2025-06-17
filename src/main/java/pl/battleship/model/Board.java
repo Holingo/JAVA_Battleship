@@ -1,6 +1,8 @@
 package pl.battleship.model;
 
 import pl.battleship.exception.*;
+
+import java.io.*;
 import java.util.*;
 
 import pl.battleship.util.Color;
@@ -56,6 +58,38 @@ public class Board {
             }
         }
     }
+
+    public void saveBoardToFile(boolean showShips, String filename) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+            writer.print("   ");
+            for (int i = 1; i <= 10; i++) {
+                writer.printf("%2d ", i);
+            }
+            writer.println();
+
+            for (int y = 1; y <= 10; y++) {
+                writer.printf("%2d ", y);
+                for (int x = 1; x <= 10; x++) {
+                    CellState s = grid[x][y];
+                    char symbol;
+                    switch (s) {
+                        case SHIP:
+                            symbol = showShips ? 'S' : ' ';
+                            break;
+                        default:
+                            symbol = ' ';
+                    }
+                    writer.print(symbol + "  ");
+                }
+                writer.println();
+            }
+
+            System.out.println("Plansza AI zapisana do: " + filename);
+        } catch (IOException e) {
+            System.err.println("Błąd zapisu planszy AI: " + e.getMessage());
+        }
+    }
+
 
     private void validateAndPlaceShip(Ship ship) throws InvalidPositionException {
         for (Coordinate c : ship.getCoordinates()) {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="21.0.7" class="java.beans.XMLDecoder">
+ <object class="pl.battleship.stats.GameStats">
+  <void property="hits">
+   <int>20</int>
+  </void>
+  <void property="shotsFired">
+   <int>22</int>
+  </void>
+  <void property="username">
+   <string>test</string>
+  </void>
+  <void property="won">
+   <boolean>true</boolean>
+  </void>
+ </object>
+</java>

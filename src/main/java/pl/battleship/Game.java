@@ -33,6 +33,7 @@ public class Game {
         playerBoard.placeAllShipsRandom();
 
         aiBoard.placeAllShipsRandom();
+        aiBoard.saveBoardToFile(true, "ai_board.txt");
         while (true) {
             takeTurn(playerShooter, aiBoard, "Your");
             if (aiBoard.allShipsSunk()) { System.out.println("Congratulations! You won!"); break; }
@@ -53,7 +54,7 @@ public class Game {
             System.out.println(name + " fires at " + coord + ": " + result);
             if (shooter instanceof HumanShooter) {
                 shotsFired++;
-                if (result == CellState.HIT || result == CellState.SHIP) {
+                if (result == CellState.HIT) {
                     hits++;
                 }
             }
