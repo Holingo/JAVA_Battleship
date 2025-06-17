@@ -4,6 +4,8 @@ import pl.battleship.model.*;
 import pl.battleship.shooter.*;
 import pl.battleship.exception.*;
 
+import java.util.Scanner;
+
 public class Game {
     private Board playerBoard;
     private Board aiBoard;
@@ -18,8 +20,18 @@ public class Game {
     }
 
     public void start() {
-        System.out.println("Welcome to Battleship!");
-        playerBoard.placeAllShipsRandom();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Battleship!\n");
+
+        System.out.println("Wybierz jak chcesz generować plansze");
+        System.out.println("[0] Automatyczne generowanie\n[1] Manualne generowanie");
+        int choice = scanner.nextInt();
+        if(choice == 0) {
+            playerBoard.placeAllShipsRandom();
+        }
+        else if(choice == 1) {
+            playerBoard.placeAllShipsManual();
+        }
         aiBoard.placeAllShipsRandom();
         while (true) {
             takeTurn(playerShooter, aiBoard, "Your");
