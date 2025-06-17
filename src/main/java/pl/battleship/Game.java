@@ -20,6 +20,7 @@ public class Game {
     public void start() {
         System.out.println("Welcome to Battleship!");
         playerBoard.placeAllShipsRandom();
+
         aiBoard.placeAllShipsRandom();
         while (true) {
             takeTurn(playerShooter, aiBoard, "Your");
