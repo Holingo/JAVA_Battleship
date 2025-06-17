@@ -30,6 +30,7 @@ public class Board {
                     break;
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
+                    sc.nextLine();
                 }
             }
         }
@@ -47,7 +48,8 @@ public class Board {
                     validateAndPlaceShip(ship);
                     ships.add(ship);
                     break;
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
         }
     }
@@ -81,7 +83,7 @@ public class Board {
     public boolean allShipsSunk() { return ships.stream().allMatch(Ship::isSunk); }
 
     public void print(boolean showShips) {
-<<<<<<< bartek
+
         System.out.print("   ");
         for (int i = 1; i <= 10; i++) {
             System.out.printf("%2d ", i);
@@ -107,7 +109,9 @@ public class Board {
                         symbol = " ";
                 }
                 System.out.print(symbol + "  ");
-=======
+            }
+        }
+
         System.out.print("  ");
         for (int i = 1; i <= 10; i++) System.out.print(i + " ");
         System.out.println();
@@ -120,7 +124,6 @@ public class Board {
                 else if (s == CellState.HIT) ch = 'x';
                 else if (s == CellState.SHIP && showShips) ch = 's';
                 System.out.print(ch + " ");
->>>>>>> master
             }
             System.out.println();
         }
