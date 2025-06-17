@@ -19,7 +19,7 @@ public class Game {
 
     public Game() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Battleship, Enter your login: ");
+        System.out.println("Enter your login: ");
         this.username = scanner.nextLine();
 
         this.playerBoard = new Board();
@@ -39,6 +39,10 @@ public class Game {
             takeTurn(aiShooter, playerBoard, "AI");
             if (playerBoard.allShipsSunk()) { System.out.println("AI won. Better luck next time."); break; }
         }
+
+        boolean playerWon = aiBoard.allShipsSunk();
+        GameStats stats = new GameStats(username, shotsFired, hits, playerWon);
+        StatsSaver.saveStats(stats);
     }
 
     private void takeTurn(Shooter shooter, Board targetBoard, String name) {
@@ -47,6 +51,12 @@ public class Game {
             Coordinate coord = shooter.shoot(targetBoard);
             CellState result = targetBoard.fire(coord);
             System.out.println(name + " fires at " + coord + ": " + result);
+            if (shooter instanceof HumanShooter) {
+                shotsFired++;
+                if (result == CellState.HIT || result == CellState.SHIP) {
+                    hits++;
+                }
+            }
             System.out.println("Your Board:"); playerBoard.print(true);
             System.out.println("Opponent Board:"); aiBoard.print(false);
         } catch (InvalidPositionException|AlreadyShotException e) {
