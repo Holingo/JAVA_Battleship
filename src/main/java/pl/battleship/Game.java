@@ -3,6 +3,9 @@ package pl.battleship;
 import pl.battleship.model.*;
 import pl.battleship.shooter.*;
 import pl.battleship.exception.*;
+import pl.battleship.stats.*;
+
+import java.util.Scanner;
 
 public class Game {
     private Board playerBoard;
@@ -10,7 +13,15 @@ public class Game {
     private Shooter playerShooter;
     private Shooter aiShooter;
 
+    private String username;
+    private int shotsFired = 0;
+    private int hits = 0;
+
     public Game() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Battleship, Enter your login: ");
+        this.username = scanner.nextLine();
+
         this.playerBoard = new Board();
         this.aiBoard = new Board();
         this.playerShooter = new HumanShooter();
