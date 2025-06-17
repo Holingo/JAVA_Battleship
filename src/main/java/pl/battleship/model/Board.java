@@ -2,7 +2,9 @@ package pl.battleship.model;
 
 import pl.battleship.exception.*;
 import java.util.*;
+
 import pl.battleship.util.Color;
+
 
 public class Board {
     private CellState[][] grid = new CellState[11][11];
@@ -79,6 +81,7 @@ public class Board {
     public boolean allShipsSunk() { return ships.stream().allMatch(Ship::isSunk); }
 
     public void print(boolean showShips) {
+<<<<<<< bartek
         System.out.print("   ");
         for (int i = 1; i <= 10; i++) {
             System.out.printf("%2d ", i);
@@ -104,6 +107,20 @@ public class Board {
                         symbol = " ";
                 }
                 System.out.print(symbol + "  ");
+=======
+        System.out.print("  ");
+        for (int i = 1; i <= 10; i++) System.out.print(i + " ");
+        System.out.println();
+        for (int y = 1; y <= 10; y++) {
+            System.out.print(y + (y < 10 ? " " : ""));
+            for (int x = 1; x <= 10; x++) {
+                CellState s = grid[x][y];
+                char ch = '.';
+                if (s == CellState.MISS) ch = 'o';
+                else if (s == CellState.HIT) ch = 'x';
+                else if (s == CellState.SHIP && showShips) ch = 's';
+                System.out.print(ch + " ");
+>>>>>>> master
             }
             System.out.println();
         }

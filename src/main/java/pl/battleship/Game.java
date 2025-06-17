@@ -20,6 +20,7 @@ public class Game {
     }
 
     public void start() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Battleship!\n");
 
@@ -32,6 +33,10 @@ public class Game {
         else if(choice == 1) {
             playerBoard.placeAllShipsManual();
         }
+
+        System.out.println("Welcome to Battleship!");
+        playerBoard.placeAllShipsRandom();
+
         aiBoard.placeAllShipsRandom();
         while (true) {
             takeTurn(playerShooter, aiBoard, "Your");
