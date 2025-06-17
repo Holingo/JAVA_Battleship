@@ -3,6 +3,9 @@ package pl.battleship.model;
 import pl.battleship.exception.*;
 import java.util.*;
 
+import pl.battleship.util.Color;
+
+
 public class Board {
     private CellState[][] grid = new CellState[11][11];
     private List<Ship> ships = new ArrayList<>();
@@ -78,6 +81,33 @@ public class Board {
     public boolean allShipsSunk() { return ships.stream().allMatch(Ship::isSunk); }
 
     public void print(boolean showShips) {
+<<<<<<< bartek
+        System.out.print("   ");
+        for (int i = 1; i <= 10; i++) {
+            System.out.printf("%2d ", i);
+        }
+        System.out.println();
+
+        for (int y = 1; y <= 10; y++) {
+            System.out.printf("%2d ", y);
+            for (int x = 1; x <= 10; x++) {
+                CellState s = grid[x][y];
+                String symbol;
+                switch (s) {
+                    case MISS:
+                        symbol = Color.YELLOW + "•" + Color.RESET;
+                        break;
+                    case HIT:
+                        symbol = Color.RED + "X" + Color.RESET;
+                        break;
+                    case SHIP:
+                        symbol = showShips ? Color.BLUE + "■" + Color.RESET : " ";
+                        break;
+                    default:
+                        symbol = " ";
+                }
+                System.out.print(symbol + "  ");
+=======
         System.out.print("  ");
         for (int i = 1; i <= 10; i++) System.out.print(i + " ");
         System.out.println();
@@ -90,6 +120,7 @@ public class Board {
                 else if (s == CellState.HIT) ch = 'x';
                 else if (s == CellState.SHIP && showShips) ch = 's';
                 System.out.print(ch + " ");
+>>>>>>> master
             }
             System.out.println();
         }
