@@ -25,26 +25,44 @@ public class Game {
         this.playerBoard = new Board();
         this.aiBoard = new Board();
         this.playerShooter = new HumanShooter();
-        this.aiShooter = new AiShooter();
+        this.aiShooter = new SmartAiShooter();
     }
 
     public void start() {
 
         Scanner scanner = new Scanner(System.in);
+        int choice = -1;
         System.out.println("Welcome to Battleship!\n");
 
-        System.out.println("Wybierz jak chcesz generować plansze");
-        System.out.println("[0] Automatyczne generowanie\n[1] Manualne generowanie");
-        int choice = scanner.nextInt();
-        if(choice == 0) {
-            playerBoard.placeAllShipsRandom();
+        while (true) {
+            System.out.println("Wybierz jak chcesz generować plansze");
+            System.out.println("[0] Automatyczne generowanie\n[1] Manualne generowanie");
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice == 0 || choice == 1) {
+                    break;
+                } else {
+                    System.out.println("Błąd: wybierz 0 lub 1.");
+                }
+            } else {
+                System.out.println("Błąd: wpisz cyfrę 0 lub 1.");
+                scanner.next();
+            }
         }
-        else if(choice == 1) {
+
+        // Generowanie plansze, ktora zostala wybrana
+        if (choice == 0) {
+            playerBoard.placeAllShipsRandom();
+        } else {
             playerBoard.placeAllShipsManual();
         }
 
+        // Tworzenie planszy AI - do testow by wiedziec jak wyglada
         aiBoard.placeAllShipsRandom();
         aiBoard.saveBoardToFile(true, "ai_board.txt");
+
+        // Etap koncowy gdy ktos wygra
         while (true) {
             takeTurn(playerShooter, aiBoard, "Your");
             if (aiBoard.allShipsSunk()) { System.out.println("Congratulations! You won!"); break; }

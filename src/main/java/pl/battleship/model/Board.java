@@ -116,6 +116,10 @@ public class Board {
         }
     }
 
+    public CellState peek(Coordinate c) {
+        return grid[c.getX()][c.getY()];
+    }
+
     public boolean allShipsSunk() {
         return ships.stream().allMatch(Ship::isSunk);
     }
