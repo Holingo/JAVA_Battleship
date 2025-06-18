@@ -1,16 +1,18 @@
 package pl.battleship;
 
 import java.util.logging.*;
+import java.util.Scanner;
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
-        Logger root = Logger.getLogger("");
-        Handler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(Level.INFO);
-        root.addHandler(consoleHandler);
         LOGGER.info("Starting Battleship game");
-        Game game = new Game();
-        game.start();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Podaj swój login: ");
+        String username = scanner.nextLine();
+
+        MainMenu.show(username);
     }
 }
