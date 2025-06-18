@@ -7,7 +7,6 @@ import java.util.*;
 
 import pl.battleship.util.Color;
 
-
 public class Board {
     private CellState[][] grid = new CellState[11][11];
     private List<Ship> ships = new ArrayList<>();
@@ -89,7 +88,6 @@ public class Board {
             System.err.println("Błąd zapisu planszy AI: " + e.getMessage());
         }
     }
-
 
     private void validateAndPlaceShip(Ship ship) throws InvalidPositionException {
         for (Coordinate c : ship.getCoordinates()) {

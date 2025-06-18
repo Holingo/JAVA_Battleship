@@ -7,8 +7,6 @@ import pl.battleship.stats.*;
 
 import java.util.Scanner;
 
-import java.util.Scanner;
-
 public class Game {
     private Board playerBoard;
     private Board aiBoard;
@@ -44,9 +42,6 @@ public class Game {
         else if(choice == 1) {
             playerBoard.placeAllShipsManual();
         }
-
-        System.out.println("Welcome to Battleship!");
-        playerBoard.placeAllShipsRandom();
 
         aiBoard.placeAllShipsRandom();
         aiBoard.saveBoardToFile(true, "ai_board.txt");
