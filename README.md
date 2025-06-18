@@ -29,7 +29,7 @@ pl.battleship/
 
 ## 🔧 Technologie
 
-- Java 17+
+- Java 21+
 - OOP (dziedziczenie, interfejsy, polimorfizm)
 - XML (zapis statystyk)
 - Logger (`java.util.logging`)
