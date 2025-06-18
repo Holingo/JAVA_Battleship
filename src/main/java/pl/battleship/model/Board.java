@@ -1,34 +1,37 @@
 package pl.battleship.model;
 
 import pl.battleship.exception.*;
+
+import java.io.*;
 import java.util.*;
 
 import pl.battleship.util.Color;
-
 
 public class Board {
     private CellState[][] grid = new CellState[11][11];
     private List<Ship> ships = new ArrayList<>();
 
     public Board() {
-        for(int i=1;i<=10;i++) for(int j=1;j<=10;j++) grid[i][j] = CellState.EMPTY;
+        for (int i = 1; i <= 10; i++) for (int j = 1; j <= 10; j++) grid[i][j] = CellState.EMPTY;
     }
 
     public void placeAllShipsManual() {
         Scanner sc = new Scanner(System.in);
         for (Ship ship : Arrays.asList(new Battleship4(), new Cruiser3(), new Cruiser3(),
-                                      new Destroyer2(), new Destroyer2(), new Destroyer2(),
-                                      new Submarine1(), new Submarine1(), new Submarine1(), new Submarine1())) {
+                new Destroyer2(), new Destroyer2(), new Destroyer2(),
+                new Submarine1(), new Submarine1(), new Submarine1(), new Submarine1())) {
             while (true) {
                 try {
                     System.out.println("Place your " + ship.getName() + " (size=" + ship.getSize() + ") orient 1-vert,0-hor");
                     int o = sc.nextInt();
+
                     if (o != 1 && o != 0) {
                         System.out.println("Choose [0] or [1]");
                         continue;
                     }
                     System.out.print("X: "); int x = sc.nextInt();
                     System.out.print("Y: "); int y = sc.nextInt();
+
                     ship.setPosition(new Coordinate(x, y), o == 1);
                     validateAndPlaceShip(ship);
                     ships.add(ship);
@@ -45,8 +48,8 @@ public class Board {
     public void placeAllShipsRandom() {
         Random r = new Random();
         for (Ship ship : Arrays.asList(new Battleship4(), new Cruiser3(), new Cruiser3(),
-                                      new Destroyer2(), new Destroyer2(), new Destroyer2(),
-                                      new Submarine1(), new Submarine1(), new Submarine1(), new Submarine1())) {
+                new Destroyer2(), new Destroyer2(), new Destroyer2(),
+                new Submarine1(), new Submarine1(), new Submarine1(), new Submarine1())) {
             while (true) {
                 try {
                     int o = r.nextInt(2), x = r.nextInt(10) + 1, y = r.nextInt(10) + 1;
@@ -60,15 +63,47 @@ public class Board {
         }
     }
 
+    public void saveBoardToFile(boolean showShips, String filename) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+            writer.print("   ");
+            for (int i = 1; i <= 10; i++) {
+                writer.printf("%2d ", i);
+            }
+            writer.println();
+
+            for (int y = 1; y <= 10; y++) {
+                writer.printf("%2d ", y);
+                for (int x = 1; x <= 10; x++) {
+                    CellState s = grid[x][y];
+                    char symbol;
+                    switch (s) {
+                        case SHIP:
+                            symbol = showShips ? 'S' : ' ';
+                            break;
+                        default:
+                            symbol = ' ';
+                    }
+                    writer.print(symbol + "  ");
+                }
+                writer.println();
+            }
+
+            System.out.println("Plansza AI zapisana do: " + filename);
+        } catch (IOException e) {
+            System.err.println("Błąd zapisu planszy AI: " + e.getMessage());
+        }
+    }
+
     private void validateAndPlaceShip(Ship ship) throws InvalidPositionException {
         for (Coordinate c : ship.getCoordinates()) {
             if (grid[c.getX()][c.getY()] != CellState.EMPTY)
                 throw new InvalidPositionException("Occupied: " + c);
-            for (int dx = -1; dx <= 1; dx++) for (int dy = -1; dy <= 1; dy++) {
-                int nx = c.getX() + dx, ny = c.getY() + dy;
-                if (nx >= 1 && nx <= 10 && ny >= 1 && ny <= 10 && grid[nx][ny] == CellState.SHIP)
-                    throw new InvalidPositionException("Too close to another ship: (" + nx + "," + ny + ")");
-            }
+            for (int dx = -1; dx <= 1; dx++)
+                for (int dy = -1; dy <= 1; dy++) {
+                    int nx = c.getX() + dx, ny = c.getY() + dy;
+                    if (nx >= 1 && nx <= 10 && ny >= 1 && ny <= 10 && grid[nx][ny] == CellState.SHIP)
+                        throw new InvalidPositionException("Too close to another ship: (" + nx + "," + ny + ")");
+                }
         }
         for (Coordinate c : ship.getCoordinates()) grid[c.getX()][c.getY()] = CellState.SHIP;
     }
@@ -86,11 +121,18 @@ public class Board {
         }
     }
 
-    public boolean allShipsSunk() { return ships.stream().allMatch(Ship::isSunk); }
+    public CellState peek(Coordinate c) {
+        return grid[c.getX()][c.getY()];
+    }
+
+    public boolean allShipsSunk() {
+        return ships.stream().allMatch(Ship::isSunk);
+    }
 
     public void print(boolean showShips) {
 
         System.out.print("  ");
+
         for (int i = 1; i <= 10; i++) {
             System.out.printf("%2d ", i);
         }
