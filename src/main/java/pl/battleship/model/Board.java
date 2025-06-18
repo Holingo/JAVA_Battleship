@@ -22,7 +22,13 @@ public class Board {
             while (true) {
                 try {
                     System.out.println("Place your " + ship.getName() + " (size=" + ship.getSize() + ") orient 1-vert,0-hor");
-                    int o = sc.nextInt(); System.out.print("X: "); int x = sc.nextInt(); System.out.print("Y: "); int y = sc.nextInt();
+                    int o = sc.nextInt();
+                    if (o != 1 && o != 0) {
+                        System.out.println("Choose [0] or [1]");
+                        continue;
+                    }
+                    System.out.print("X: "); int x = sc.nextInt();
+                    System.out.print("Y: "); int y = sc.nextInt();
                     ship.setPosition(new Coordinate(x, y), o == 1);
                     validateAndPlaceShip(ship);
                     ships.add(ship);
@@ -84,7 +90,7 @@ public class Board {
 
     public void print(boolean showShips) {
 
-        System.out.print("   ");
+        System.out.print("  ");
         for (int i = 1; i <= 10; i++) {
             System.out.printf("%2d ", i);
         }
@@ -109,21 +115,6 @@ public class Board {
                         symbol = " ";
                 }
                 System.out.print(symbol + "  ");
-            }
-        }
-
-        System.out.print("  ");
-        for (int i = 1; i <= 10; i++) System.out.print(i + " ");
-        System.out.println();
-        for (int y = 1; y <= 10; y++) {
-            System.out.print(y + (y < 10 ? " " : ""));
-            for (int x = 1; x <= 10; x++) {
-                CellState s = grid[x][y];
-                char ch = '.';
-                if (s == CellState.MISS) ch = 'o';
-                else if (s == CellState.HIT) ch = 'x';
-                else if (s == CellState.SHIP && showShips) ch = 's';
-                System.out.print(ch + " ");
             }
             System.out.println();
         }

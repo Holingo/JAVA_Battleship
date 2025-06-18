@@ -22,7 +22,10 @@ public class Game {
     public void start() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Battleship!\n");
+
+        System.out.println("\n//////////////////////////////////////////////////////////");
+        System.out.println("////                  Battleship                      ////");
+        System.out.println("//////////////////////////////////////////////////////////\n");
 
         while (true) {
             System.out.println("Wybierz jak chcesz generować plansze");
@@ -44,10 +47,6 @@ public class Game {
             }
         }
 
-
-        System.out.println("Welcome to Battleship!");
-        playerBoard.placeAllShipsRandom();
-
         aiBoard.placeAllShipsRandom();
         while (true) {
             takeTurn(playerShooter, aiBoard, "Your");
@@ -60,8 +59,21 @@ public class Game {
     private void takeTurn(Shooter shooter, Board targetBoard, String name) {
         System.out.println(name + "'s turn.");
         try {
+
             Coordinate coord = shooter.shoot(targetBoard);
             CellState result = targetBoard.fire(coord);
+
+            try {
+                if (System.getProperty("os.name").contains("Windows")) {
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                } else {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                }
+            } catch (Exception e) {
+                System.out.println("Unable to clear screen.");
+            }
+
             System.out.println(name + " fires at " + coord + ": " + result);
             System.out.println("Your Board:"); playerBoard.print(true);
             System.out.println("Opponent Board:"); aiBoard.print(false);
