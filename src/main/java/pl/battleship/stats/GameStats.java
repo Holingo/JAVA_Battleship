@@ -15,6 +15,14 @@ public class GameStats {
         this.won = won;
     }
 
+    @Override
+    public String toString() {
+        return "Gracz: " + username +
+                "\nOddane strzały: " + shotsFired +
+                "\nTrafienia: " + hits +
+                "\nOstatnia gra wygrana? " + (won ? "Tak" : "Nie");
+    }
+
     public String getUsername() { return username; }
     public int getShotsFired() { return shotsFired; }
     public int getHits() { return hits; }

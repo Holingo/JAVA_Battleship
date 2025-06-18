@@ -17,11 +17,8 @@ public class Game {
     private int shotsFired = 0;
     private int hits = 0;
 
-    public Game() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your login: ");
-        this.username = scanner.nextLine();
-
+    public Game(String username) {
+        this.username = username;
         this.playerBoard = new Board();
         this.aiBoard = new Board();
         this.playerShooter = new HumanShooter();
