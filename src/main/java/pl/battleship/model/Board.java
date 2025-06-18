@@ -24,10 +24,14 @@ public class Board {
                 try {
                     System.out.println("Place your " + ship.getName() + " (size=" + ship.getSize() + ") orient 1-vert,0-hor");
                     int o = sc.nextInt();
-                    System.out.print("X: ");
-                    int x = sc.nextInt();
-                    System.out.print("Y: ");
-                    int y = sc.nextInt();
+
+                    if (o != 1 && o != 0) {
+                        System.out.println("Choose [0] or [1]");
+                        continue;
+                    }
+                    System.out.print("X: "); int x = sc.nextInt();
+                    System.out.print("Y: "); int y = sc.nextInt();
+
                     ship.setPosition(new Coordinate(x, y), o == 1);
                     validateAndPlaceShip(ship);
                     ships.add(ship);
@@ -35,6 +39,7 @@ public class Board {
                     break;
                 } catch (Exception e) {
                     System.out.println("Error: " + e.getMessage());
+                    sc.nextLine();
                 }
             }
         }
@@ -54,6 +59,7 @@ public class Board {
                     break;
                 } catch (Exception ignored) {
                 }
+
             }
         }
     }
@@ -125,7 +131,10 @@ public class Board {
     }
 
     public void print(boolean showShips) {
-        System.out.print("   ");
+
+
+        System.out.print("  ");
+
         for (int i = 1; i <= 10; i++) {
             System.out.printf("%2d ", i);
         }

@@ -49,34 +49,32 @@ public class Game {
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        int choice = -1;
-        System.out.println("Welcome to Battleship!\n");
+
+        System.out.println("\n//////////////////////////////////////////////////////////");
+        System.out.println("////                  Battleship                      ////");
+        System.out.println("//////////////////////////////////////////////////////////\n");
 
         while (true) {
             System.out.println("Wybierz jak chcesz generować plansze");
             System.out.println("[0] Automatyczne generowanie\n[1] Manualne generowanie");
 
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                if (choice == 0 || choice == 1) {
+            try{
+                int choice = scanner.nextInt();
+                if(choice == 0) {
+                    playerBoard.placeAllShipsRandom();
                     break;
-                } else {
-                    System.out.println("Błąd: wybierz 0 lub 1.");
                 }
-            } else {
-                System.out.println("Błąd: wpisz cyfrę 0 lub 1.");
-                scanner.next();
+                else if(choice == 1) {
+                    playerBoard.placeAllShipsManual();
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                scanner.nextLine();
             }
         }
 
-        // Generowanie plansze, ktora zostala wybrana
-        if (choice == 0) {
-            playerBoard.placeAllShipsRandom();
-        } else {
-            playerBoard.placeAllShipsManual();
-        }
 
-        // Tworzenie planszy AI - do testow by wiedziec jak wyglada
         aiBoard.placeAllShipsRandom();
         aiBoard.saveBoardToFile(true, "ai_board.txt");
 
@@ -131,8 +129,21 @@ public class Game {
     private void takeTurn(Shooter shooter, Board targetBoard, String name) {
         System.out.println(name + "'s turn.");
         try {
+
             Coordinate coord = shooter.shoot(targetBoard);
             CellState result = targetBoard.fire(coord);
+
+            try {
+                if (System.getProperty("os.name").contains("Windows")) {
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                } else {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                }
+            } catch (Exception e) {
+                System.out.println("Unable to clear screen.");
+            }
+
             System.out.println(name + " fires at " + coord + ": " + result);
             if (shooter instanceof HumanShooter) {
                 shotsFired++;
